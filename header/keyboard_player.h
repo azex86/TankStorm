@@ -1,17 +1,17 @@
-#pragma once
 #ifndef KEYBOARD_PLAYER_HEADER
 #define KEYBOARD_PLAYER_HEADER
-#include "tool.h"
+
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Event.hpp>
 #include "tank.h"
+
 struct KeyboardSettings
 {
-	SDL_KeyCode right;
-	SDL_KeyCode left;
-	SDL_KeyCode shoot;
+    sf::Keyboard::Key right;
+    sf::Keyboard::Key left;
+    sf::Keyboard::Key shoot;
 };
 
-typedef struct KeyboardSettings KeyboardSettings;
+void keyboardPlayerCheck(Tank* tank, KeyboardSettings settings, const sf::Event& event);
 
-void keyboardPlayerCheck(Tank* tank, KeyboardSettings settings,SDL_Event* event);
-
-#endif // !KEYBOARD_PLAYER_HEADER
+#endif

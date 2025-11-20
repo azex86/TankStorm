@@ -1,21 +1,22 @@
 #ifndef TOOL_HEADER
 #define TOOL_HEADER
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
 #include <stdlib.h>
+#include <iostream>
 
 typedef unsigned int uint;
 
-struct Gamesettings
+struct GameSettings 
 {
     float fps;
-    SDL_Window* window;
-    SDL_Renderer* renderer;
+    sf::RenderWindow* window;
 };
-typedef struct Gamesettings GameSettings;
 
-extern TTF_Font* global_font;
+extern sf::Font global_font;
 void init_font(void);
-
 
 #endif

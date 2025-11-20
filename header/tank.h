@@ -2,38 +2,58 @@
 #ifndef TANK_HEADER
 #define TANK_HEADER
 #include "tool.h"
+#include <cmath>
 
+enum TankState 
+{
+    STOP = 0b1,
+    MOVE_RIGHT = 0b10,
+    MOVE_LEFT = 0b100,
+    SHOOT = 0b1000,
+};
 
-struct Tank;
-typedef struct Tank Tank;
+class Tank
+{
+public:
+    Tank(const std::string& corps_filename, const std::string& canon_filename);
+    ~Tank();
 
-Tank* initTank(char* corps_filename, char* canon_filename,SDL_Renderer* renderer);
+    void draw(sf::RenderWindow& window);
+    
+    void setSize(sf::Vector2i size);
+    void setPos(sf::Vector2f pos);
+    void move(float m);
+    void setRotation(float angle);
+    void rotate(float angle);
+    void setRotationCanon(float angle);
+    void rotateCanon(float angle);
+    void setVitesse(float vitesse);
 
-// draw the tank
-void drawTank(Tank* tank, SDL_Renderer* renderer);
-// free the tank
-void freeTank(Tank* tank);
-// define the collision Box of the tank and the texture size too
-void setSizeTank(Tank* tank, SDL_Point size);
-void setPosTank(Tank* tank, SDL_FPoint pos);
-void moveTank(Tank* tank, float m);
-void setRotationTank(Tank* tank, float angle);
-void rotateTank(Tank* tank, float angle);
-void setRotationCanon(Tank* tank, float angle);
-void rotateCanon(Tank* tank, float angle);
-void setVitesseTank(Tank* tank, float vitesse);
+    void targetPoint(sf::Vector2f point);
 
-void targetPoint(Tank* tank, SDL_FPoint point);
+    void moveLeft();
+    void moveLeftStop();
+    void moveRight();
+    void moveRightStop();
+    void shoot();
+    void update();
 
-//set state to moveLeft at the next update
-void moveLeft(Tank* tank);
-void moveLeftStop(Tank* tank);
-//set state to moveRight at the next update
-void moveRight(Tank* tank);
-void moveRightStop(Tank* tank);
-//set state to shoot at the next update
-void shoot(Tank* tank);
-//update the tank position and state
-void updateTank(Tank* tank);
+    sf::Vector2f getPos() const { return pos; }
+
+private:
+    sf::Vector2f pos;
+    sf::Vector2i size;
+    sf::Vector2i canon_size;
+    float v;
+    float angle;
+    float canon_angle;
+    
+    sf::Texture corps_texture;
+    sf::Sprite corps_sprite;
+    sf::Texture canon_texture;
+    sf::Sprite canon_sprite;
+
+    int state;
+};
 
 #endif // !TANK_HEADER

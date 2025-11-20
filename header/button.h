@@ -1,31 +1,35 @@
-#pragma once
-#ifndef  BUTTON_HEADER
+#ifndef BUTTON_HEADER
 #define BUTTON_HEADER
-#include <SDL2/SDL.h>
-#include "list.h"
+
+#include <SFML/Graphics.hpp>
+#include <functional>
+#include <vector>
+#include <string>
 #include "tool.h"
-struct Button;
-typedef struct Button Button;
 
+class Button {
+public:
+    using Callback = std::function<void()>;
 
-Button* initButton(SDL_Renderer* renderer, char* text, int x, int y, int w, int h, void(*pressed)(void));
-void draw_Button(Button* Button);
-void check_Button(Button* Button, SDL_Event* event);
-void free_Button(Button* Button);
-void freeAllButton(void);
-void check_all_buttons(SDL_Event* event);
-void draw_all_buttons(void);
+    Button(const std::string& text, float x, float y, float w, float h, Callback callback);
+    ~Button();
 
-/*
-* Récupère tous les boutons actifs
-* Et les désactive
-*/
-list takeAllButtons(void);
+    void draw(sf::RenderWindow& window);
+    void check(const sf::Event& event, const sf::RenderWindow& window);
 
-/*
-* Active tous les boutons de la liste passée en paramètre
-* précondition : aucun bouton n'est actif
-*/
-void pushAllButtons(list buttons);
+    static void drawAll(sf::RenderWindow& window);
+    static void checkAll(const sf::Event& event, const sf::RenderWindow& window);
+    static void clearAll();
+    static std::vector<Button*> takeAll();
+    static void restoreAll(const std::vector<Button*>& buttons);
 
-#endif // ! BUTTON_HEADER
+private:
+    sf::RectangleShape shape;
+    sf::Text label;
+    Callback callback;
+    bool hovered;
+    
+    static std::vector<Button*> all_buttons;
+};
+
+#endif
