@@ -1,4 +1,6 @@
 #include "../header/tank.h"
+#include "../header/terrain.h"
+#include "../header/missile.h"
 #include <cmath>
 
 #ifndef M_PI
@@ -6,6 +8,7 @@
 #endif
 
 Tank::Tank(const std::string& corps_filename, const std::string& canon_filename)
+    : velocity(0.0f, 0.0f), onGround(false)
 {
     if (!corps_texture.loadFromFile(corps_filename)) {
         std::cerr << "Error during load of corps texture" << std::endl;
@@ -22,12 +25,12 @@ Tank::Tank(const std::string& corps_filename, const std::string& canon_filename)
     
     // Set origins to center for rotation
     corps_sprite.setOrigin(size.x / 2.0f, size.y / 2.0f);
-    canon_sprite.setOrigin(0, canon_size.y / 2.0f); // Canon rotates around its base (assumed left side)
+    canon_sprite.setOrigin(0, canon_size.y / 2.0f);
 
-    pos = {0, 0};
+    pos = {100, 100};
     angle = 0;
     canon_angle = 0;
-    v = 0.1f;
+    v = 150.0f; // Increased speed for better gameplay
     state = STOP;
 
     std::cout << "Tank initialized : pos = " << pos.x << ";" << pos.y << " size = " << size.x << ";" << size.y << std::endl;
@@ -43,17 +46,14 @@ void Tank::draw(sf::RenderWindow& window)
     corps_sprite.setRotation(angle);
     window.draw(corps_sprite);
 
-    // Canon position needs to be adjusted based on tank center
-    // Assuming canon is mounted on top center of tank
     canon_sprite.setPosition(pos.x + size.x / 2.0f, pos.y + size.y / 2.0f);
-    canon_sprite.setRotation(canon_angle);
+    canon_sprite.setRotation(canon_angle - 90);
     window.draw(canon_sprite);
 }
 
 void Tank::setSize(sf::Vector2i new_size)
 {
     size = new_size;
-    // Scale sprite if needed, but usually we just use texture size
 }
 
 void Tank::setPos(sf::Vector2f new_pos)
@@ -68,13 +68,6 @@ void Tank::move(float m)
     float y = m * std::sin(angle_rad);
     pos.x += x;
     pos.y += y;
-
-    // Recalculate canon orientation based on mouse
-    sf::Vector2i mousePos = sf::Mouse::getPosition();
-    // Note: this uses global mouse position, might need window relative if available
-    // But for now we don't have window reference here easily without passing it.
-    // The original code used SDL_GetMouseState which is window relative if window has focus?
-    // Let's rely on update() calling targetPoint with correct coordinates.
 }
 
 void Tank::setRotation(float new_angle)
@@ -104,7 +97,6 @@ void Tank::setVitesse(float vitesse)
 
 void Tank::targetPoint(sf::Vector2f point)
 {
-    // Calculate angle to point from tank center
     float dx = point.x - (pos.x + size.x / 2.0f);
     float dy = point.y - (pos.y + size.y / 2.0f);
     float angle_rad = std::atan2(dy, dx);
@@ -136,21 +128,76 @@ void Tank::shoot()
     state |= SHOOT;
 }
 
-void Tank::update()
+void Tank::applyGravity(float deltaTime)
 {
+    if (!onGround) {
+        velocity.y += GRAVITY * deltaTime;
+    }
+}
+
+bool Tank::checkTerrainCollision(const Terrain& terrain)
+{
+    // Check bottom of tank for ground collision
+    int checkPoints = 5;
+    for (int i = 0; i < checkPoints; i++) {
+        float xOffset = (i / (float)(checkPoints - 1)) * size.x;
+        int checkX = static_cast<int>(pos.x + xOffset);
+        int checkY = static_cast<int>(pos.y + size.y + 1);
+        
+        if (terrain.isColliding(checkX, checkY)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+std::unique_ptr<Missile> Tank::createMissile()
+{
+    // Create missile at cannon tip
+    float cannonLength = canon_size.x;
+    float angleRad = canon_angle * M_PI / 180.0f;
+    
+    float missileX = pos.x + size.x / 2.0f + std::cos(angleRad) * cannonLength;
+    float missileY = pos.y + size.y / 2.0f + std::sin(angleRad) * cannonLength;
+    
+    return std::make_unique<Missile>(missileX, missileY, canon_angle, MISSILE_SPEED);
+}
+
+void Tank::update(float deltaTime, const Terrain* terrain)
+{
+    // Handle movement
     if (state & MOVE_LEFT)
     {
-        move(-v);
+        move(-v * deltaTime);
     }
     if (state & MOVE_RIGHT)
     {
-        move(v);
+        move(v * deltaTime);
     }
+    
+    // Apply physics
+    if (terrain) {
+        applyGravity(deltaTime);
+        
+        // Apply velocity
+        pos.y += velocity.y * deltaTime;
+        
+        // Check terrain collision
+        if (checkTerrainCollision(*terrain)) {
+            // Move tank up until not colliding
+            while (checkTerrainCollision(*terrain) && pos.y > 0) {
+                pos.y -= 1.0f;
+            }
+            velocity.y = 0;
+            onGround = true;
+        } else {
+            onGround = false;
+        }
+    }
+    
+    // Shooting is handled externally now (creates missile)
     if (state & SHOOT)
     {
-        std::cout << "Pew pew" << std::endl;
         state &= ~SHOOT;
     }
-
-    // std::cout << "Tank : pos = (" << pos.x << ";" << pos.y << ") angle = " << angle << " canon_angle = " << canon_angle << "\r";
 }

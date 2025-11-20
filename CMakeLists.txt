@@ -13,3 +13,10 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(TankStorm ${SOURCES})
 
 target_link_libraries(TankStorm sfml-graphics sfml-window sfml-system sfml-audio sfml-network)
+
+# Copy resources to build directory
+add_custom_command(TARGET TankStorm POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/res $<TARGET_FILE_DIR:TankStorm>/res
+    COMMENT "Copying resources to build directory"
+)
