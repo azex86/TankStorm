@@ -153,6 +153,54 @@ src/button.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TankStorm.dir/build.make CMakeFiles/TankStorm.dir/src/button.cpp.s
 .PHONY : src/button.cpp.s
 
+src/config.o: src/config.cpp.o
+.PHONY : src/config.o
+
+# target to build an object file
+src/config.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TankStorm.dir/build.make CMakeFiles/TankStorm.dir/src/config.cpp.o
+.PHONY : src/config.cpp.o
+
+src/config.i: src/config.cpp.i
+.PHONY : src/config.i
+
+# target to preprocess a source file
+src/config.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TankStorm.dir/build.make CMakeFiles/TankStorm.dir/src/config.cpp.i
+.PHONY : src/config.cpp.i
+
+src/config.s: src/config.cpp.s
+.PHONY : src/config.s
+
+# target to generate assembly for a file
+src/config.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TankStorm.dir/build.make CMakeFiles/TankStorm.dir/src/config.cpp.s
+.PHONY : src/config.cpp.s
+
+src/input_manager.o: src/input_manager.cpp.o
+.PHONY : src/input_manager.o
+
+# target to build an object file
+src/input_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TankStorm.dir/build.make CMakeFiles/TankStorm.dir/src/input_manager.cpp.o
+.PHONY : src/input_manager.cpp.o
+
+src/input_manager.i: src/input_manager.cpp.i
+.PHONY : src/input_manager.i
+
+# target to preprocess a source file
+src/input_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TankStorm.dir/build.make CMakeFiles/TankStorm.dir/src/input_manager.cpp.i
+.PHONY : src/input_manager.cpp.i
+
+src/input_manager.s: src/input_manager.cpp.s
+.PHONY : src/input_manager.s
+
+# target to generate assembly for a file
+src/input_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TankStorm.dir/build.make CMakeFiles/TankStorm.dir/src/input_manager.cpp.s
+.PHONY : src/input_manager.cpp.s
+
 src/keyboard_player.o: src/keyboard_player.cpp.o
 .PHONY : src/keyboard_player.o
 
@@ -273,6 +321,30 @@ src/play.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TankStorm.dir/build.make CMakeFiles/TankStorm.dir/src/play.cpp.s
 .PHONY : src/play.cpp.s
 
+src/settings.o: src/settings.cpp.o
+.PHONY : src/settings.o
+
+# target to build an object file
+src/settings.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TankStorm.dir/build.make CMakeFiles/TankStorm.dir/src/settings.cpp.o
+.PHONY : src/settings.cpp.o
+
+src/settings.i: src/settings.cpp.i
+.PHONY : src/settings.i
+
+# target to preprocess a source file
+src/settings.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TankStorm.dir/build.make CMakeFiles/TankStorm.dir/src/settings.cpp.i
+.PHONY : src/settings.cpp.i
+
+src/settings.s: src/settings.cpp.s
+.PHONY : src/settings.s
+
+# target to generate assembly for a file
+src/settings.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TankStorm.dir/build.make CMakeFiles/TankStorm.dir/src/settings.cpp.s
+.PHONY : src/settings.cpp.s
+
 src/tank.o: src/tank.cpp.o
 .PHONY : src/tank.o
 
@@ -357,6 +429,12 @@ help:
 	@echo "... src/button.o"
 	@echo "... src/button.i"
 	@echo "... src/button.s"
+	@echo "... src/config.o"
+	@echo "... src/config.i"
+	@echo "... src/config.s"
+	@echo "... src/input_manager.o"
+	@echo "... src/input_manager.i"
+	@echo "... src/input_manager.s"
 	@echo "... src/keyboard_player.o"
 	@echo "... src/keyboard_player.i"
 	@echo "... src/keyboard_player.s"
@@ -372,6 +450,9 @@ help:
 	@echo "... src/play.o"
 	@echo "... src/play.i"
 	@echo "... src/play.s"
+	@echo "... src/settings.o"
+	@echo "... src/settings.i"
+	@echo "... src/settings.s"
 	@echo "... src/tank.o"
 	@echo "... src/tank.i"
 	@echo "... src/tank.s"

@@ -48,6 +48,7 @@ public:
     // Physics
     void applyGravity(float deltaTime);
     bool checkTerrainCollision(const Terrain& terrain);
+    void applyExplosionImpulse(float explosionX, float explosionY, float explosionForce, float explosionRadius);
     
     // Missile creation
     std::unique_ptr<Missile> createMissile();

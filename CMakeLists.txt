@@ -8,7 +8,20 @@ find_package(SFML 2.5 COMPONENTS graphics window system audio network REQUIRED)
 
 include_directories(header)
 
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+set(SOURCES
+    src/main.cpp
+    src/menu.cpp
+    src/play.cpp
+    src/tank.cpp
+    src/button.cpp
+    src/tool.cpp
+    src/terrain.cpp
+    src/missile.cpp
+    src/config.cpp
+    src/input_manager.cpp
+    src/keyboard_player.cpp
+    src/settings.cpp
+)
 
 add_executable(TankStorm ${SOURCES})
 

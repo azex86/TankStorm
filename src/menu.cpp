@@ -1,4 +1,6 @@
 #include "../header/menu.h"
+#include "../header/settings.h"
+#include "../header/config.h"
 #include <iostream>
 
 enum UserButtonPressed
@@ -29,6 +31,10 @@ void menu(GameSettings* settings)
     init_font();
     window->setTitle("Menu");
 
+    // Load configuration
+    Config config;
+    config.loadFromFile("config.ini");
+
     bool quit = false;
 
     Button* settings_Button = new Button("Settings", 100, 100, 100, 50, settings_pressed);
@@ -40,6 +46,15 @@ void menu(GameSettings* settings)
             if (event.type == sf::Event::Closed) {
                 quit = true;
                 window->close();
+            }
+            else if (event.type == sf::Event::Resized)
+            {
+                // Update view to maintain aspect ratio
+                sf::View view = window->getView();
+                view.setSize(settings->originalWidth, settings->originalHeight);
+                view.setCenter(settings->originalWidth / 2.f, settings->originalHeight / 2.f);
+                view = getLetterboxView(view, event.size.width, event.size.height);
+                window->setView(view);
             }
             else if (event.type == sf::Event::KeyReleased)
             {
@@ -58,6 +73,14 @@ void menu(GameSettings* settings)
         case NONE:
             break;
         case SETTINGS:
+            {
+                std::vector<Button*> buttons = Button::takeAll();
+                ::settings(settings, &config);
+                // Reload config after settings window closes
+                config.loadFromFile("config.ini");
+                Button::restoreAll(buttons);
+                window->setTitle("Menu");
+            }
             break;
         case PLAY:
             {

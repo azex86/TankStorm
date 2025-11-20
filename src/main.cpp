@@ -44,14 +44,14 @@ int main(int argc, char *argv[]) {
 
     GameSettings settings;
     settings.fps = fps;
+    settings.originalWidth = screen_width_init;
+    settings.originalHeight = screen_height_init;
     
     std::cout << "Initialisation de la SFML ...." << std::endl;
-
-    sf::RenderWindow window(sf::VideoMode(screen_width_init, screen_height_init), "TankStorm");
-    window.setFramerateLimit(static_cast<unsigned int>(fps));
     
-    // Position window if needed, but SFML doesn't easily support screen selection like SDL
-    // We can just let the OS handle it or use setPosition if we really want.
+    // Create resizable window
+    sf::RenderWindow window(sf::VideoMode(screen_width_init, screen_height_init), "TankStorm", sf::Style::Default);
+    window.setFramerateLimit(static_cast<unsigned int>(fps));
     
     settings.window = &window;
 

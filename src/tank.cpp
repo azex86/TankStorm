@@ -151,6 +151,46 @@ bool Tank::checkTerrainCollision(const Terrain& terrain)
     return false;
 }
 
+void Tank::applyExplosionImpulse(float explosionX, float explosionY, float explosionForce, float explosionRadius)
+{
+    // Calculate tank center
+    float tankCenterX = pos.x + size.x / 2.0f;
+    float tankCenterY = pos.y + size.y / 2.0f;
+    
+    // Calculate distance from explosion
+    float dx = tankCenterX - explosionX;
+    float dy = tankCenterY - explosionY;
+    float distance = std::sqrt(dx * dx + dy * dy);
+    
+    std::cout << "Explosion check - Tank: (" << tankCenterX << "," << tankCenterY 
+              << ") Explosion: (" << explosionX << "," << explosionY 
+              << ") Distance: " << distance << " Radius: " << explosionRadius << std::endl;
+    
+    // Only apply impulse if within explosion radius
+    if (distance < explosionRadius && distance > 0.1f) {
+        // Calculate impulse magnitude (inverse square law with minimum distance)
+        float normalizedDistance = distance / explosionRadius;
+        float impulseMagnitude = explosionForce * (1.0f - normalizedDistance);
+        
+        // Calculate impulse direction (away from explosion)
+        float dirX = dx / distance;
+        float dirY = dy / distance;
+        
+        // Apply impulse to velocity
+        velocity.x += dirX * impulseMagnitude;
+        velocity.y += dirY * impulseMagnitude;
+        
+        // Tank is now airborne
+        onGround = false;
+        
+        std::cout << ">>> Tank hit by explosion! Impulse: " << impulseMagnitude 
+                  << " Velocity: (" << velocity.x << "," << velocity.y << ")" << std::endl;
+    } else {
+        std::cout << ">>> Tank NOT affected (too far)" << std::endl;
+    }
+}
+
+
 std::unique_ptr<Missile> Tank::createMissile()
 {
     // Create missile at cannon tip
@@ -179,8 +219,12 @@ void Tank::update(float deltaTime, const Terrain* terrain)
     if (terrain) {
         applyGravity(deltaTime);
         
-        // Apply velocity
+        // Apply velocity (both horizontal and vertical)
+        pos.x += velocity.x * deltaTime;
         pos.y += velocity.y * deltaTime;
+        
+        // Apply friction to horizontal velocity
+        velocity.x *= 0.95f;
         
         // Check terrain collision
         if (checkTerrainCollision(*terrain)) {

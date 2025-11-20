@@ -1,5 +1,7 @@
 #include "../header/play.h"
 #include "../header/button.h"
+#include "../header/config.h"
+#include "../header/input_manager.h"
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -16,6 +18,13 @@ void play(GameSettings* settings)
     init_font();
     window->setTitle("Jeu");
 
+    // Load configuration
+    Config config;
+    config.loadFromFile("config.ini");
+    
+    // Create input manager
+    InputManager inputManager(config);
+
     bool quit = false;
     
     // Get window size
@@ -28,8 +37,7 @@ void play(GameSettings* settings)
     // Create tank
     Tank* mytank = new Tank("res/tank.bmp", "res/canon.bmp");
     mytank->setPos(sf::Vector2f(windowSize.x / 2.0f - 40, 50)); // Start in air to test gravity
-    
-    KeyboardSettings mysettings = {sf::Keyboard::Right, sf::Keyboard::Left, sf::Keyboard::Space};
+    mytank->setVitesse(config.getTankSpeed());
     
     // Missile management
     std::vector<std::unique_ptr<Missile>> missiles;
@@ -46,6 +54,15 @@ void play(GameSettings* settings)
                 quit = true;
                 window->close();
             }
+            else if (event.type == sf::Event::Resized)
+            {
+                // Update view to maintain aspect ratio
+                sf::View view = window->getView();
+                view.setSize(settings->originalWidth, settings->originalHeight);
+                view.setCenter(settings->originalWidth / 2.f, settings->originalHeight / 2.f);
+                view = getLetterboxView(view, event.size.width, event.size.height);
+                window->setView(view);
+            }
             else if (event.type == sf::Event::KeyReleased)
             {
                 if (event.key.code == sf::Keyboard::Escape)
@@ -55,21 +72,27 @@ void play(GameSettings* settings)
             }
             
             Button::checkAll(event, *window);
-            keyboardPlayerCheck(mytank, mysettings, event);
+            // Update input manager
+            inputManager.update(event);
         }
 
-        // Check if tank wants to shoot - use mouse click instead of keyboard
-        if (mytank->getPos().x >= 0) { // Simple check to see if tank exists
-            // Handle shooting with left mouse button
-            static bool mouseWasPressed = false;
-            bool mouseIsPressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
-            
-            if (mouseIsPressed && !mouseWasPressed) {
-                // Create new missile
-                missiles.push_back(mytank->createMissile());
-                std::cout << "Missile fired! Total missiles: " << missiles.size() << std::endl;
-            }
-            mouseWasPressed = mouseIsPressed;
+        // Handle tank movement based on input
+        if (inputManager.isMoveLeftPressed()) {
+            mytank->moveLeft();
+        } else {
+            mytank->moveLeftStop();
+        }
+        
+        if (inputManager.isMoveRightPressed()) {
+            mytank->moveRight();
+        } else {
+            mytank->moveRightStop();
+        }
+        
+        // Handle shooting
+        if (inputManager.isShootJustPressed()) {
+            missiles.push_back(mytank->createMissile());
+            std::cout << "Missile fired! Total missiles: " << missiles.size() << std::endl;
         }
         
         // Update tank
@@ -85,9 +108,16 @@ void play(GameSettings* settings)
             
             // Check collision with terrain
             if ((*it)->checkTerrainCollision(*terrain)) {
-                // Destroy terrain at impact point
+                // Get explosion parameters
                 sf::Vector2f missilePos = (*it)->getPosition();
-                terrain->destroyCircle(missilePos.x, missilePos.y, (*it)->getExplosionRadius());
+                float explosionRadius = config.getExplosionRadius();
+                float explosionForce = config.getExplosionForce();
+                
+                // Destroy terrain at impact point
+                terrain->destroyCircle(missilePos.x, missilePos.y, explosionRadius);
+                
+                // Apply explosion impulse to tank
+                mytank->applyExplosionImpulse(missilePos.x, missilePos.y, explosionForce, explosionRadius);
                 
                 std::cout << "Missile exploded at (" << missilePos.x << ", " << missilePos.y << ")" << std::endl;
                 

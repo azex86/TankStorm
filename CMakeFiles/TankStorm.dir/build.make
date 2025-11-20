@@ -72,38 +72,10 @@ include CMakeFiles/TankStorm.dir/flags.make
 CMakeFiles/TankStorm.dir/codegen:
 .PHONY : CMakeFiles/TankStorm.dir/codegen
 
-CMakeFiles/TankStorm.dir/src/button.cpp.o: CMakeFiles/TankStorm.dir/flags.make
-CMakeFiles/TankStorm.dir/src/button.cpp.o: src/button.cpp
-CMakeFiles/TankStorm.dir/src/button.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TankStorm.dir/src/button.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/button.cpp.o -MF CMakeFiles/TankStorm.dir/src/button.cpp.o.d -o CMakeFiles/TankStorm.dir/src/button.cpp.o -c /DATA_2/Programmation/C/RBR/src/button.cpp
-
-CMakeFiles/TankStorm.dir/src/button.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TankStorm.dir/src/button.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /DATA_2/Programmation/C/RBR/src/button.cpp > CMakeFiles/TankStorm.dir/src/button.cpp.i
-
-CMakeFiles/TankStorm.dir/src/button.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/button.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/button.cpp -o CMakeFiles/TankStorm.dir/src/button.cpp.s
-
-CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o: CMakeFiles/TankStorm.dir/flags.make
-CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o: src/keyboard_player.cpp
-CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o -MF CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o.d -o CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o -c /DATA_2/Programmation/C/RBR/src/keyboard_player.cpp
-
-CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /DATA_2/Programmation/C/RBR/src/keyboard_player.cpp > CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.i
-
-CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/keyboard_player.cpp -o CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.s
-
 CMakeFiles/TankStorm.dir/src/main.cpp.o: CMakeFiles/TankStorm.dir/flags.make
 CMakeFiles/TankStorm.dir/src/main.cpp.o: src/main.cpp
 CMakeFiles/TankStorm.dir/src/main.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/TankStorm.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TankStorm.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/main.cpp.o -MF CMakeFiles/TankStorm.dir/src/main.cpp.o.d -o CMakeFiles/TankStorm.dir/src/main.cpp.o -c /DATA_2/Programmation/C/RBR/src/main.cpp
 
 CMakeFiles/TankStorm.dir/src/main.cpp.i: cmake_force
@@ -117,7 +89,7 @@ CMakeFiles/TankStorm.dir/src/main.cpp.s: cmake_force
 CMakeFiles/TankStorm.dir/src/menu.cpp.o: CMakeFiles/TankStorm.dir/flags.make
 CMakeFiles/TankStorm.dir/src/menu.cpp.o: src/menu.cpp
 CMakeFiles/TankStorm.dir/src/menu.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/TankStorm.dir/src/menu.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/TankStorm.dir/src/menu.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/menu.cpp.o -MF CMakeFiles/TankStorm.dir/src/menu.cpp.o.d -o CMakeFiles/TankStorm.dir/src/menu.cpp.o -c /DATA_2/Programmation/C/RBR/src/menu.cpp
 
 CMakeFiles/TankStorm.dir/src/menu.cpp.i: cmake_force
@@ -128,24 +100,10 @@ CMakeFiles/TankStorm.dir/src/menu.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/menu.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/menu.cpp -o CMakeFiles/TankStorm.dir/src/menu.cpp.s
 
-CMakeFiles/TankStorm.dir/src/missile.cpp.o: CMakeFiles/TankStorm.dir/flags.make
-CMakeFiles/TankStorm.dir/src/missile.cpp.o: src/missile.cpp
-CMakeFiles/TankStorm.dir/src/missile.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TankStorm.dir/src/missile.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/missile.cpp.o -MF CMakeFiles/TankStorm.dir/src/missile.cpp.o.d -o CMakeFiles/TankStorm.dir/src/missile.cpp.o -c /DATA_2/Programmation/C/RBR/src/missile.cpp
-
-CMakeFiles/TankStorm.dir/src/missile.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TankStorm.dir/src/missile.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /DATA_2/Programmation/C/RBR/src/missile.cpp > CMakeFiles/TankStorm.dir/src/missile.cpp.i
-
-CMakeFiles/TankStorm.dir/src/missile.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/missile.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/missile.cpp -o CMakeFiles/TankStorm.dir/src/missile.cpp.s
-
 CMakeFiles/TankStorm.dir/src/play.cpp.o: CMakeFiles/TankStorm.dir/flags.make
 CMakeFiles/TankStorm.dir/src/play.cpp.o: src/play.cpp
 CMakeFiles/TankStorm.dir/src/play.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/TankStorm.dir/src/play.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/TankStorm.dir/src/play.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/play.cpp.o -MF CMakeFiles/TankStorm.dir/src/play.cpp.o.d -o CMakeFiles/TankStorm.dir/src/play.cpp.o -c /DATA_2/Programmation/C/RBR/src/play.cpp
 
 CMakeFiles/TankStorm.dir/src/play.cpp.i: cmake_force
@@ -159,7 +117,7 @@ CMakeFiles/TankStorm.dir/src/play.cpp.s: cmake_force
 CMakeFiles/TankStorm.dir/src/tank.cpp.o: CMakeFiles/TankStorm.dir/flags.make
 CMakeFiles/TankStorm.dir/src/tank.cpp.o: src/tank.cpp
 CMakeFiles/TankStorm.dir/src/tank.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/TankStorm.dir/src/tank.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/TankStorm.dir/src/tank.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/tank.cpp.o -MF CMakeFiles/TankStorm.dir/src/tank.cpp.o.d -o CMakeFiles/TankStorm.dir/src/tank.cpp.o -c /DATA_2/Programmation/C/RBR/src/tank.cpp
 
 CMakeFiles/TankStorm.dir/src/tank.cpp.i: cmake_force
@@ -170,24 +128,24 @@ CMakeFiles/TankStorm.dir/src/tank.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/tank.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/tank.cpp -o CMakeFiles/TankStorm.dir/src/tank.cpp.s
 
-CMakeFiles/TankStorm.dir/src/terrain.cpp.o: CMakeFiles/TankStorm.dir/flags.make
-CMakeFiles/TankStorm.dir/src/terrain.cpp.o: src/terrain.cpp
-CMakeFiles/TankStorm.dir/src/terrain.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/TankStorm.dir/src/terrain.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/terrain.cpp.o -MF CMakeFiles/TankStorm.dir/src/terrain.cpp.o.d -o CMakeFiles/TankStorm.dir/src/terrain.cpp.o -c /DATA_2/Programmation/C/RBR/src/terrain.cpp
+CMakeFiles/TankStorm.dir/src/button.cpp.o: CMakeFiles/TankStorm.dir/flags.make
+CMakeFiles/TankStorm.dir/src/button.cpp.o: src/button.cpp
+CMakeFiles/TankStorm.dir/src/button.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TankStorm.dir/src/button.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/button.cpp.o -MF CMakeFiles/TankStorm.dir/src/button.cpp.o.d -o CMakeFiles/TankStorm.dir/src/button.cpp.o -c /DATA_2/Programmation/C/RBR/src/button.cpp
 
-CMakeFiles/TankStorm.dir/src/terrain.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TankStorm.dir/src/terrain.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /DATA_2/Programmation/C/RBR/src/terrain.cpp > CMakeFiles/TankStorm.dir/src/terrain.cpp.i
+CMakeFiles/TankStorm.dir/src/button.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TankStorm.dir/src/button.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /DATA_2/Programmation/C/RBR/src/button.cpp > CMakeFiles/TankStorm.dir/src/button.cpp.i
 
-CMakeFiles/TankStorm.dir/src/terrain.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/terrain.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/terrain.cpp -o CMakeFiles/TankStorm.dir/src/terrain.cpp.s
+CMakeFiles/TankStorm.dir/src/button.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/button.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/button.cpp -o CMakeFiles/TankStorm.dir/src/button.cpp.s
 
 CMakeFiles/TankStorm.dir/src/tool.cpp.o: CMakeFiles/TankStorm.dir/flags.make
 CMakeFiles/TankStorm.dir/src/tool.cpp.o: src/tool.cpp
 CMakeFiles/TankStorm.dir/src/tool.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/TankStorm.dir/src/tool.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/TankStorm.dir/src/tool.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/tool.cpp.o -MF CMakeFiles/TankStorm.dir/src/tool.cpp.o.d -o CMakeFiles/TankStorm.dir/src/tool.cpp.o -c /DATA_2/Programmation/C/RBR/src/tool.cpp
 
 CMakeFiles/TankStorm.dir/src/tool.cpp.i: cmake_force
@@ -198,30 +156,120 @@ CMakeFiles/TankStorm.dir/src/tool.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/tool.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/tool.cpp -o CMakeFiles/TankStorm.dir/src/tool.cpp.s
 
+CMakeFiles/TankStorm.dir/src/terrain.cpp.o: CMakeFiles/TankStorm.dir/flags.make
+CMakeFiles/TankStorm.dir/src/terrain.cpp.o: src/terrain.cpp
+CMakeFiles/TankStorm.dir/src/terrain.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/TankStorm.dir/src/terrain.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/terrain.cpp.o -MF CMakeFiles/TankStorm.dir/src/terrain.cpp.o.d -o CMakeFiles/TankStorm.dir/src/terrain.cpp.o -c /DATA_2/Programmation/C/RBR/src/terrain.cpp
+
+CMakeFiles/TankStorm.dir/src/terrain.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TankStorm.dir/src/terrain.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /DATA_2/Programmation/C/RBR/src/terrain.cpp > CMakeFiles/TankStorm.dir/src/terrain.cpp.i
+
+CMakeFiles/TankStorm.dir/src/terrain.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/terrain.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/terrain.cpp -o CMakeFiles/TankStorm.dir/src/terrain.cpp.s
+
+CMakeFiles/TankStorm.dir/src/missile.cpp.o: CMakeFiles/TankStorm.dir/flags.make
+CMakeFiles/TankStorm.dir/src/missile.cpp.o: src/missile.cpp
+CMakeFiles/TankStorm.dir/src/missile.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/TankStorm.dir/src/missile.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/missile.cpp.o -MF CMakeFiles/TankStorm.dir/src/missile.cpp.o.d -o CMakeFiles/TankStorm.dir/src/missile.cpp.o -c /DATA_2/Programmation/C/RBR/src/missile.cpp
+
+CMakeFiles/TankStorm.dir/src/missile.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TankStorm.dir/src/missile.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /DATA_2/Programmation/C/RBR/src/missile.cpp > CMakeFiles/TankStorm.dir/src/missile.cpp.i
+
+CMakeFiles/TankStorm.dir/src/missile.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/missile.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/missile.cpp -o CMakeFiles/TankStorm.dir/src/missile.cpp.s
+
+CMakeFiles/TankStorm.dir/src/config.cpp.o: CMakeFiles/TankStorm.dir/flags.make
+CMakeFiles/TankStorm.dir/src/config.cpp.o: src/config.cpp
+CMakeFiles/TankStorm.dir/src/config.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/TankStorm.dir/src/config.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/config.cpp.o -MF CMakeFiles/TankStorm.dir/src/config.cpp.o.d -o CMakeFiles/TankStorm.dir/src/config.cpp.o -c /DATA_2/Programmation/C/RBR/src/config.cpp
+
+CMakeFiles/TankStorm.dir/src/config.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TankStorm.dir/src/config.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /DATA_2/Programmation/C/RBR/src/config.cpp > CMakeFiles/TankStorm.dir/src/config.cpp.i
+
+CMakeFiles/TankStorm.dir/src/config.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/config.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/config.cpp -o CMakeFiles/TankStorm.dir/src/config.cpp.s
+
+CMakeFiles/TankStorm.dir/src/input_manager.cpp.o: CMakeFiles/TankStorm.dir/flags.make
+CMakeFiles/TankStorm.dir/src/input_manager.cpp.o: src/input_manager.cpp
+CMakeFiles/TankStorm.dir/src/input_manager.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/TankStorm.dir/src/input_manager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/input_manager.cpp.o -MF CMakeFiles/TankStorm.dir/src/input_manager.cpp.o.d -o CMakeFiles/TankStorm.dir/src/input_manager.cpp.o -c /DATA_2/Programmation/C/RBR/src/input_manager.cpp
+
+CMakeFiles/TankStorm.dir/src/input_manager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TankStorm.dir/src/input_manager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /DATA_2/Programmation/C/RBR/src/input_manager.cpp > CMakeFiles/TankStorm.dir/src/input_manager.cpp.i
+
+CMakeFiles/TankStorm.dir/src/input_manager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/input_manager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/input_manager.cpp -o CMakeFiles/TankStorm.dir/src/input_manager.cpp.s
+
+CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o: CMakeFiles/TankStorm.dir/flags.make
+CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o: src/keyboard_player.cpp
+CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o -MF CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o.d -o CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o -c /DATA_2/Programmation/C/RBR/src/keyboard_player.cpp
+
+CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /DATA_2/Programmation/C/RBR/src/keyboard_player.cpp > CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.i
+
+CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/keyboard_player.cpp -o CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.s
+
+CMakeFiles/TankStorm.dir/src/settings.cpp.o: CMakeFiles/TankStorm.dir/flags.make
+CMakeFiles/TankStorm.dir/src/settings.cpp.o: src/settings.cpp
+CMakeFiles/TankStorm.dir/src/settings.cpp.o: CMakeFiles/TankStorm.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/TankStorm.dir/src/settings.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TankStorm.dir/src/settings.cpp.o -MF CMakeFiles/TankStorm.dir/src/settings.cpp.o.d -o CMakeFiles/TankStorm.dir/src/settings.cpp.o -c /DATA_2/Programmation/C/RBR/src/settings.cpp
+
+CMakeFiles/TankStorm.dir/src/settings.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TankStorm.dir/src/settings.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /DATA_2/Programmation/C/RBR/src/settings.cpp > CMakeFiles/TankStorm.dir/src/settings.cpp.i
+
+CMakeFiles/TankStorm.dir/src/settings.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TankStorm.dir/src/settings.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /DATA_2/Programmation/C/RBR/src/settings.cpp -o CMakeFiles/TankStorm.dir/src/settings.cpp.s
+
 # Object files for target TankStorm
 TankStorm_OBJECTS = \
-"CMakeFiles/TankStorm.dir/src/button.cpp.o" \
-"CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o" \
 "CMakeFiles/TankStorm.dir/src/main.cpp.o" \
 "CMakeFiles/TankStorm.dir/src/menu.cpp.o" \
-"CMakeFiles/TankStorm.dir/src/missile.cpp.o" \
 "CMakeFiles/TankStorm.dir/src/play.cpp.o" \
 "CMakeFiles/TankStorm.dir/src/tank.cpp.o" \
+"CMakeFiles/TankStorm.dir/src/button.cpp.o" \
+"CMakeFiles/TankStorm.dir/src/tool.cpp.o" \
 "CMakeFiles/TankStorm.dir/src/terrain.cpp.o" \
-"CMakeFiles/TankStorm.dir/src/tool.cpp.o"
+"CMakeFiles/TankStorm.dir/src/missile.cpp.o" \
+"CMakeFiles/TankStorm.dir/src/config.cpp.o" \
+"CMakeFiles/TankStorm.dir/src/input_manager.cpp.o" \
+"CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o" \
+"CMakeFiles/TankStorm.dir/src/settings.cpp.o"
 
 # External object files for target TankStorm
 TankStorm_EXTERNAL_OBJECTS =
 
-TankStorm: CMakeFiles/TankStorm.dir/src/button.cpp.o
-TankStorm: CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o
 TankStorm: CMakeFiles/TankStorm.dir/src/main.cpp.o
 TankStorm: CMakeFiles/TankStorm.dir/src/menu.cpp.o
-TankStorm: CMakeFiles/TankStorm.dir/src/missile.cpp.o
 TankStorm: CMakeFiles/TankStorm.dir/src/play.cpp.o
 TankStorm: CMakeFiles/TankStorm.dir/src/tank.cpp.o
-TankStorm: CMakeFiles/TankStorm.dir/src/terrain.cpp.o
+TankStorm: CMakeFiles/TankStorm.dir/src/button.cpp.o
 TankStorm: CMakeFiles/TankStorm.dir/src/tool.cpp.o
+TankStorm: CMakeFiles/TankStorm.dir/src/terrain.cpp.o
+TankStorm: CMakeFiles/TankStorm.dir/src/missile.cpp.o
+TankStorm: CMakeFiles/TankStorm.dir/src/config.cpp.o
+TankStorm: CMakeFiles/TankStorm.dir/src/input_manager.cpp.o
+TankStorm: CMakeFiles/TankStorm.dir/src/keyboard_player.cpp.o
+TankStorm: CMakeFiles/TankStorm.dir/src/settings.cpp.o
 TankStorm: CMakeFiles/TankStorm.dir/build.make
 TankStorm: CMakeFiles/TankStorm.dir/compiler_depend.ts
 TankStorm: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.2
@@ -230,7 +278,7 @@ TankStorm: /usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.6.2
 TankStorm: /usr/lib/x86_64-linux-gnu/libsfml-network.so.2.6.2
 TankStorm: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.2
 TankStorm: CMakeFiles/TankStorm.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable TankStorm"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/DATA_2/Programmation/C/RBR/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable TankStorm"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TankStorm.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying resources to build directory"
 	/usr/bin/cmake -E copy_directory /DATA_2/Programmation/C/RBR/res /DATA_2/Programmation/C/RBR/res
