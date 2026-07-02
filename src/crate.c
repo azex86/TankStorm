@@ -6,7 +6,7 @@ static void CrateApply(Crate *c, int tankIdx)
     Tank *t = &G.tanks[tankIdx];
     switch (c->type) {
     case CR_HEAL:
-        t->hp = fminf(TANK_MAX_HP, t->hp + 40);
+        t->hp = fminf(G.rules.tankHp, t->hp + 40);
         for (int i = 0; i < 10; i++)
             ParticleAdd(t->x + Rndf(-10, 10), t->y + Rndf(-10, 4), Rndf(-15, 15), Rndf(-70, -30),
                         Rndf(0.5f, 0.9f), Rndf(2, 3.5f), -0.1f, (Color){ 120, 255, 120, 220 });
@@ -28,7 +28,7 @@ void CratesUpdate(float dt)
             if (c->active) continue;
             c->active = true;
             c->landed = false;
-            c->x = Rndf(140, WORLD_W - 140);
+            c->x = Rndf(fminf(140, G.worldW * 0.1f), G.worldW - fminf(140, G.worldW * 0.1f));
             c->y = -30;
             c->vy = 45;
             unsigned int r = RndU() % 100;
@@ -56,7 +56,7 @@ void CratesUpdate(float dt)
             continue;
         }
 
-        for (int k = 0; k < MAX_TANKS; k++) {
+        for (int k = 0; k < G.tankCount; k++) {
             Tank *t = &G.tanks[k];
             if (!t->alive) continue;
             if (fabsf(t->x - c->x) < 18 && fabsf(t->y - c->y) < 18) {

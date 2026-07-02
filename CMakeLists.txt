@@ -25,6 +25,8 @@ add_executable(tankstorm
     src/bot.c
     src/crate.c
     src/fx.c
+    src/map.c
+    src/editor.c
 )
 target_include_directories(tankstorm PRIVATE src)
 target_link_libraries(tankstorm PRIVATE raylib)

@@ -27,7 +27,7 @@ static int PickTarget(int self)
 {
     float best = 1e12f;
     int idx = -1;
-    for (int i = 0; i < MAX_TANKS; i++) {
+    for (int i = 0; i < G.tankCount; i++) {
         if (i == self || !G.tanks[i].alive) continue;
         float dx = G.tanks[i].x - G.tanks[self].x;
         float dy = G.tanks[i].y - G.tanks[self].y;
@@ -70,7 +70,7 @@ void BotUpdate(int idx, float dt)
             float bestDir = 0, bestY = 1e9f;
             static const float CAND[] = { -220, -130, -60, 60, 130, 220 };
             for (int c = 0; c < 6; c++) {
-                float cx = Clampf(t->x + CAND[c], 20, WORLD_W - 20);
+                float cx = Clampf(t->x + CAND[c], 20, G.worldW - 20);
                 float sy = SurfaceYAt(cx, fmaxf(0, t->y - 220));
                 if (sy < bestY) { bestY = sy; bestDir = (CAND[c] > 0) ? 1.0f : -1.0f; }
             }
@@ -85,11 +85,12 @@ void BotUpdate(int idx, float dt)
     }
 
     // Ne jamais s'aventurer sur les pentes abruptes des bords de la carte
-    if (t->x < 260) t->aiMoveDir = 1;
-    else if (t->x > WORLD_W - 260) t->aiMoveDir = -1;
+    float edge = fminf(260.0f, G.worldW * 0.16f);
+    if (t->x < edge) t->aiMoveDir = 1;
+    else if (t->x > G.worldW - edge) t->aiMoveDir = -1;
 
-    // Anti-blocage : bloqué contre une paroi trop raide -> demi-tour
-    if (t->grounded && fabsf(t->aiMoveDir) > 0.5f && fabsf(t->vx) < 8.0f) {
+    // Anti-blocage : coincé (recoin fermé) -> demi-tour
+    if (t->grounded && fabsf(t->aiMoveDir) > 0.5f && fabsf(t->surfSpeed) < 8.0f) {
         t->aiStuck += dt;
         if (t->aiStuck > 0.7f) {
             t->aiMoveDir = -t->aiMoveDir;
@@ -105,7 +106,7 @@ void BotUpdate(int idx, float dt)
         Tank *e = &G.tanks[t->target];
         float desired;
         if (!SolveBallistic(TankMuzzle(t), (Vector2){ e->x, e->y - 4 },
-                            ROCKET_SPEED, ROCKET_GRAV, &desired))
+                            G.rules.rocketSpeed, ROCKET_GRAV, &desired))
             desired = (e->x > t->x) ? -PI / 4 : -3 * PI / 4;   // lob à 45° vers la cible
 
         desired += t->aiAimErr * sinf(G.time * 1.3f + idx * 2.1f);

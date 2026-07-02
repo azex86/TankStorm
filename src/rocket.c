@@ -1,24 +1,31 @@
 // Roquettes : balistique, collisions, explosions (creusent le terrain, dégâts + souffle)
 #include "game.h"
 
-typedef struct { float radius, dmg, knock, cooldown; } WeaponDef;
+typedef struct { float radius, dmg, knock; } WeaponDef;
 
-static const WeaponDef WEAPONS[] = {
-    [W_ROCKET] = { 26, 34, 260, FIRE_COOLDOWN },
-    [W_TRIPLE] = { 19, 20, 190, 1.00f },
-    [W_BIG]    = { 46, 62, 380, 1.25f },
-};
+// Paramètres dérivés des règles de la map
+static WeaponDef WeaponParams(WeaponType w)
+{
+    float r = G.rules.rocketRadius;
+    float d = G.rules.rocketDmg;
+    float k = d * 7.6f;   // le souffle suit les dégâts
+    switch (w) {
+    case W_TRIPLE: return (WeaponDef){ r * 0.73f, d * 0.60f, k * 0.73f };
+    case W_BIG:    return (WeaponDef){ r * 1.77f, d * 1.80f, k * 1.46f };
+    default:       return (WeaponDef){ r, d, k };
+    }
+}
 
 static void SpawnRocket(int owner, float x, float y, float angle, WeaponType type)
 {
-    for (int i = 0; i < MAX_ROCKETS; i++) {
+    for (int i = 0; i < G.rocketCap; i++) {
         Rocket *r = &G.rockets[i];
         if (r->active) continue;
         r->active = true;
         r->x = x;
         r->y = y;
-        r->vx = cosf(angle) * ROCKET_SPEED;
-        r->vy = sinf(angle) * ROCKET_SPEED;
+        r->vx = cosf(angle) * G.rules.rocketSpeed;
+        r->vy = sinf(angle) * G.rules.rocketSpeed;
         r->owner = owner;
         r->type = type;
         r->life = 0;
@@ -31,10 +38,11 @@ void FireWeapon(int owner)
 {
     if (G.state != ST_PLAY) return;
     Tank *t = &G.tanks[owner];
-    if (!t->alive || t->cooldown > 0) return;
+    if (!t->alive || t->cooldown > 0 || t->shots <= 0) return;
 
     WeaponType w = t->weapon;
-    t->cooldown = WEAPONS[w].cooldown;
+    t->cooldown = SHOT_DELAY;
+    t->shots--;
 
     Vector2 m = TankMuzzle(t);
     int n = (w == W_TRIPLE) ? 3 : 1;
@@ -44,6 +52,14 @@ void FireWeapon(int owner)
     }
     FxMuzzle(m.x, m.y, t->aimAngle);
     SfxPlay(SFX_FIRE, 0.7f, 0.15f);
+
+    // Recul du tir : propulse le tank dans le sens opposé au canon.
+    // C'est le vrai moteur de déplacement aérien (tirez vers le bas pour monter,
+    // vers le bas-arrière pour avancer en sautant, etc.). Réglable par map.
+    float recoil = G.rules.recoil * ((w == W_BIG) ? 1.35f : 1.0f);
+    t->vx -= cosf(t->aimAngle) * recoil;
+    t->vy -= sinf(t->aimAngle) * recoil;
+    t->grounded = false;
 
     if (w != W_ROCKET) {
         t->ammo--;
@@ -58,7 +74,7 @@ void Explode(float x, float y, float radius, float dmg, float knock, int owner, 
     G.shake = fmaxf(G.shake, Clampf(radius * 0.35f, 4, 16));
     SfxPlay(SFX_BOOM, Clampf(radius / 46.0f, 0.5f, 1.0f), 0.18f);
 
-    for (int i = 0; i < MAX_TANKS; i++) {
+    for (int i = 0; i < G.tankCount; i++) {
         Tank *t = &G.tanks[i];
         if (!t->alive) continue;
         float dx = t->x - x, dy = t->y - y;
@@ -72,22 +88,24 @@ void Explode(float x, float y, float radius, float dmg, float knock, int owner, 
         if (i != owner)
             TankDamage(i, dmg * (0.30f + 0.70f * f), owner);
 
-        // Souffle : c'est lui qui permet le rocket jump (auto-souffle amplifié, 0 dégât)
-        float k = knock * (0.40f + 0.60f * f) * ((i == owner) ? 1.25f : 1.0f);
+        // Souffle : projette les tanks touchés (le recul du tir gère l'auto-propulsion,
+        // donc on atténue l'auto-souffle pour ne pas cumuler des sauts démesurés).
+        float k = knock * (0.40f + 0.60f * f) * ((i == owner) ? 0.85f : 1.0f);
         TankImpulse(t, ux * k, uy * k - k * 0.25f);
     }
 }
 
 void RocketsUpdate(float dt)
 {
-    for (int i = 0; i < MAX_ROCKETS; i++) {
+    for (int i = 0; i < G.rocketCap; i++) {
         Rocket *r = &G.rockets[i];
         if (!r->active) continue;
 
         r->life += dt;
         r->vy += ROCKET_GRAV * dt;
 
-        const WeaponDef *w = &WEAPONS[r->type];
+        WeaponDef def = WeaponParams(r->type);
+        const WeaponDef *w = &def;
         float dist = sqrtf(r->vx * r->vx + r->vy * r->vy) * dt;
         int steps = (int)(dist / 4.0f) + 1;
         float sdt = dt / steps;
@@ -105,7 +123,7 @@ void RocketsUpdate(float dt)
                             (Color){ 200, 200, 200, 150 });
             }
 
-            if (r->x < -60 || r->x > WORLD_W + 60 || r->y > WORLD_H + 60) {
+            if (r->x < -60 || r->x > G.worldW + 60 || r->y > G.worldH + 60) {
                 r->active = false;
                 break;
             }
@@ -124,7 +142,7 @@ void RocketsUpdate(float dt)
                 break;
             }
             // Tanks
-            for (int k = 0; k < MAX_TANKS; k++) {
+            for (int k = 0; k < G.tankCount; k++) {
                 Tank *t = &G.tanks[k];
                 if (!t->alive) continue;
                 if (k == r->owner && r->life < 0.12f) continue;
@@ -141,7 +159,7 @@ void RocketsUpdate(float dt)
 
 void RocketsDraw(void)
 {
-    for (int i = 0; i < MAX_ROCKETS; i++) {
+    for (int i = 0; i < G.rocketCap; i++) {
         Rocket *r = &G.rockets[i];
         if (!r->active) continue;
         float a = atan2f(r->vy, r->vx);

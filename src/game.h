@@ -9,39 +9,56 @@
 // ---- Dimensions ----
 #define SCREEN_W 1280
 #define SCREEN_H 720
-#define WORLD_W  1600
-#define WORLD_H  960
+#define DEF_WORLD_W 1600      // taille par défaut, chaque map porte la sienne
+#define DEF_WORLD_H 960
+#define WATER_MARGIN 55       // niveau initial de l'eau = worldH - WATER_MARGIN
 
-#define MAX_TANKS     8
-#define MAX_ROCKETS   96
 #define MAX_PARTICLES 1024
 #define MAX_CRATES    6
 #define MAX_FEED      5
+#define MAX_MAPS      64
 
-// ---- Physique / équilibrage ----
-#define GRAVITY        640.0f
-#define TANK_HALF_W    12.0f
-#define TANK_HALF_H    7.0f
-#define TANK_SPEED     115.0f
-#define TANK_MAX_HP    100.0f
-#define FIRE_COOLDOWN  0.85f
-#define ROCKET_SPEED   540.0f
-#define ROCKET_GRAV    430.0f
-#define WATER_START    905.0f
-#define WATER_GRACE    18.0f
+// ---- Constantes physiques fixes ----
+#define GRAVITY      640.0f
+#define TANK_HALF_W  12.0f
+#define TANK_HALF_H  7.0f
+#define ROCKET_GRAV  430.0f
+#define SHOT_DELAY   0.30f    // délai minimal entre deux tirs d'une rafale
 
 typedef enum { W_ROCKET = 0, W_TRIPLE, W_BIG } WeaponType;
-typedef enum { ST_MENU = 0, ST_COUNTDOWN, ST_PLAY, ST_OVER } GameState;
+typedef enum { ST_MENU = 0, ST_MAPSELECT, ST_EDITOR, ST_COUNTDOWN, ST_PLAY, ST_OVER } GameState;
 typedef enum { CR_HEAL = 0, CR_TRIPLE, CR_BIG } CrateType;
 typedef enum { SFX_FIRE = 0, SFX_BOOM, SFX_PICK, SFX_SPLASH, SFX_DIE, SFX_COUNT } SfxId;
 
+// Règles de la partie : embarquées dans chaque map (tous les champs font 4 octets).
+// Aucune limite de gameplay : seuls des garde-fous techniques (mémoire, division
+// par zéro) sont appliqués au chargement — voir ClampRules dans map.c.
+typedef struct MapRules {
+    int   numBots;        // nombre d'adversaires IA
+    float tankHp;         // points de vie
+    float tankSpeed;      // px/s
+    int   rocketSlots;    // emplacements de roquettes (rafale)
+    float reloadTime;     // s par roquette rechargée
+    float rocketSpeed;    // px/s
+    float rocketDmg;      // dégâts par roquette
+    float rocketRadius;   // rayon d'explosion en px
+    float waterGrace;     // s avant la montée des eaux
+    float waterSpeed;     // px/s (premier palier)
+    float recoil;         // impulsion de recul du tir (px/s) — moteur du vol
+    int   worldW, worldH; // dimensions du terrain en px
+} MapRules;
+
 typedef struct Tank {
-    bool  alive, isPlayer, grounded;
+    bool  alive, isPlayer, grounded;   // grounded = accroché à une surface
     float x, y;             // centre du corps
-    float vx, vy;
+    float vx, vy;           // vitesse monde (vol balistique)
+    float nx, ny;           // normale de la surface d'accroche (vers l'extérieur)
+    float surfSpeed;        // vitesse le long de la surface (signée)
     float bodyAngle;        // inclinaison du châssis (rendu)
     float aimAngle;         // angle de la tourelle
     float hp, cooldown, hitFlash;
+    int   shots;            // roquettes disponibles dans les emplacements
+    float reload;           // progression du rechargement de l'emplacement suivant
     WeaponType weapon;
     int   ammo;             // munitions de l'arme spéciale
     Color color;
@@ -79,14 +96,23 @@ typedef struct Game {
     GameState state;
     float stateTime;
     bool  paused;
-    // terrain
-    unsigned char *solid;   // WORLD_W * WORLD_H : 0 = air, 1 = terre
-    Color *pix;             // pixels du terrain (RGBA)
+    // règles / map
+    MapRules rules;
+    int   tankCount;          // joueur + bots
+    bool  customTerrain;      // le terrain vient d'une map (solidBackup) et non du générateur
+    bool  fromEditor;         // partie lancée depuis l'éditeur -> y retourner ensuite
+    // terrain (dimensions de la map courante, alloué par TerrainSetSize)
+    int   worldW, worldH;
+    unsigned char *solid;     // worldW * worldH : 0 = air, 1 = terre
+    unsigned char *solidBackup; // copie intacte de la map (rejouer / retour éditeur)
+    Color *pix;               // pixels du terrain (RGBA)
     Texture2D terrainTex;
     bool  texReady;
-    // entités
-    Tank     tanks[MAX_TANKS];
-    Rocket   rockets[MAX_ROCKETS];
+    // entités (tanks et roquettes dimensionnés selon les règles)
+    Tank     *tanks;
+    int       tankCap;
+    Rocket   *rockets;
+    int       rocketCap;
     Particle particles[MAX_PARTICLES];
     Crate    crates[MAX_CRATES];
     Feed     feed[MAX_FEED];
@@ -98,19 +124,25 @@ typedef struct Game {
     float shake;
     float overTimer;
     int   aliveCount, winner;
-    bool  playerAuto;       // mode autotest : le joueur est piloté par l'IA
+    bool  playerAuto;         // mode autotest : le joueur est piloté par l'IA
     bool  audio;
     unsigned int seed;
 } Game;
 
 extern Game G;
 
+static inline float WaterStartY(void) { return (float)G.worldH - WATER_MARGIN; }
+
 // terrain.c
+void  TerrainSetSize(int w, int h, bool preserve);       // (ré)alloue le terrain ; preserve = garder le dessin
 void  TerrainGen(void);
-void  TerrainCarve(float cx, float cy, float r);
+void  TerrainRefresh(void);                              // recalcule couleurs + texture depuis G.solid
+void  TerrainCarve(float cx, float cy, float r);         // explosion (bords roussis)
+void  TerrainPaint(float cx, float cy, float r, bool add); // pinceau de l'éditeur (recolore proprement)
+void  TerrainClear(void);
 bool  SolidAt(int x, int y);
 bool  BoxSolid(float x0, float y0, float x1, float y1);
-float SurfaceYAt(float x, float fromY);   // 1er pixel solide en descendant, sinon WORLD_H
+float SurfaceYAt(float x, float fromY);   // 1er pixel solide en descendant, sinon worldH
 void  TerrainDraw(void);
 
 // tank.c
@@ -120,6 +152,7 @@ void    TankDraw(const Tank *t);
 void    TankDamage(int idx, float dmg, int attacker);   // attacker -1 = environnement
 void    TankKill(int idx, int attacker, bool drowned);
 void    TankImpulse(Tank *t, float ix, float iy);
+Vector2 TankPivot(const Tank *t);    // base de la tourelle (suit l'orientation)
 Vector2 TankMuzzle(const Tank *t);
 
 // rocket.c
@@ -148,7 +181,22 @@ void ParticlesUpdate(float dt);
 void ParticlesDraw(void);
 void AddFeed(const char *fmt, ...);
 
+// map.c : une map = règles + terrain (RLE), fichier maps/<nom>.tsm
+MapRules DefaultRules(void);
+void ClampRules(MapRules *r);                            // garde-fous techniques uniquement
+bool MapSave(const char *name);
+bool MapLoad(const char *path);                          // remplit G.rules + G.solid (redimensionne)
+int  MapListNames(char names[][48], int max);
+
+// editor.c : éditeur de maps + widgets d'interface
+void EditorInit(bool keepTerrain, const char *name);
+int  EditorFrame(float dt);   // 0 = rien, 1 = tester la map, 2 = menu, 3 = charger une map
+bool  UiButton(Rectangle r, const char *label);
+float UiSlider(Rectangle r, const char *label, float v, float vmin, float vmax, float step, const char *fmt);
+void  UiTextBox(Rectangle r, char *buf, int cap, bool *focus);
+
 // main.c (utilitaires partagés)
+void         DrawSky(void);
 float        Clampf(float v, float a, float b);
 float        Lerpf(float a, float b, float t);
 float        LerpAngle(float a, float b, float t);
